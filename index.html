@@ -15,6 +15,7 @@
       height: 100vh;
       margin: 0;
       text-align: center;
+      overflow: hidden;
     }
 
     .card {
@@ -25,6 +26,7 @@
       max-width: 360px;
       width: 90%;
       animation: fadeIn 1.2s ease;
+      position: relative;
     }
 
     @keyframes fadeIn {
@@ -44,20 +46,38 @@
       margin-bottom: 25px;
     }
 
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      position: relative;
+      height: 60px;
+    }
+
     button {
-      padding: 14px 30px;
+      padding: 14px 26px;
       font-size: 16px;
       border: none;
       border-radius: 30px;
       cursor: pointer;
-      background: #e63946;
-      color: white;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    button:hover {
+    .yes-btn {
+      background: #e63946;
+      color: white;
+    }
+
+    .yes-btn:hover {
       transform: scale(1.06);
       box-shadow: 0 8px 20px rgba(230,57,70,0.4);
+    }
+
+    .no-btn {
+      background: #f1f1f1;
+      color: #555;
+      position: absolute;
+      right: 0;
     }
 
     .gif {
@@ -83,7 +103,10 @@
     <h1>Will you be my Valentine? 💕</h1>
     <p>I had to ask… properly 😊</p>
 
-    <button onclick="sayYes()">Yes 💖</button>
+    <div class="buttons">
+      <button class="yes-btn" onclick="sayYes()">Yes 💖</button>
+      <button class="no-btn" id="noBtn">No 🙃</button>
+    </div>
 
     <div class="gif" id="gif">
       <img src="https://media.giphy.com/media/26FLdmIp6wJr91JAI/giphy.gif" alt="Happy Valentine">
@@ -91,6 +114,19 @@
   </div>
 
   <script>
+    const noBtn = document.getElementById("noBtn");
+
+    function moveNoButton() {
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 120 - 60;
+      const r = Math.random() * 40 - 20;
+
+      noBtn.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
+    }
+
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("touchstart", moveNoButton);
+
     function sayYes() {
       document.getElementById('gif').style.display = 'block';
     }
